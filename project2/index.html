@@ -264,9 +264,44 @@
 
   .sns-link svg { width: 18px; height: 18px; }
 
+  /* HAMBURGER BUTTON */
+  .hamburger {
+    display: none;
+    flex-direction: column; justify-content: center; align-items: center;
+    gap: 5px; width: 36px; height: 36px;
+    background: none; border: none; cursor: pointer; padding: 4px;
+  }
+
+  .hamburger span {
+    display: block; width: 22px; height: 1.5px;
+    background: var(--gold); border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
   @media (max-width: 600px) {
     header { padding: 1.2rem 1.5rem; }
-    nav { gap: 1.2rem; }
+    .hamburger { display: flex; }
+
+    nav {
+      display: none;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10,8,5,0.97);
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 2.5rem;
+      transform: none; left: 0;
+      z-index: 90;
+    }
+
+    nav.open { display: flex; }
+
+    nav a {
+      font-size: 1.1rem; letter-spacing: 0.2em;
+    }
+
     .info-inner { grid-template-columns: 1fr; }
     footer { flex-direction: column; gap: 1rem; text-align: center; }
     .sns-icons { gap: 0.8rem; }
@@ -278,13 +313,14 @@
 
 <header>
   <a class="logo" href="#">FIA WORSHIP</a>
-  <nav>
-    <a href="#">공지사항</a>
-    <a href="#">예배안내</a>
-    <a href="#">오시는길</a>
-    <a href="#">문의하기</a>
-    <a href="#">FIC 지원</a>
+  <nav id="mainNav">
+    <a href="#" onclick="closeNav()">공지사항</a>
+    <a href="#" onclick="closeNav()">예배안내</a>
+    <a href="#" onclick="closeNav()">오시는길</a>
+    <a href="#" onclick="closeNav()">문의하기</a>
+    <a href="#" onclick="closeNav()">FIC 지원</a>
   </nav>
+  <div style="display:flex;align-items:center;gap:1rem;">
   <div class="sns-icons">
     <!-- YouTube -->
     <a href="#" class="sns-link" title="YouTube" aria-label="YouTube">
@@ -298,6 +334,10 @@
         <path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z"/>
       </svg>
     </a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="메뉴 열기" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
   </div>
 </header>
 
@@ -353,5 +393,21 @@
   <p>© 2026 FIA WORSHIP. All rights reserved.</p>
 </footer>
 
+<script>
+  function toggleNav() {
+    const nav = document.getElementById('mainNav');
+    const btn = document.getElementById('hamburger');
+    nav.classList.toggle('open');
+    btn.classList.toggle('open');
+    document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+  }
+  function closeNav() {
+    const nav = document.getElementById('mainNav');
+    const btn = document.getElementById('hamburger');
+    nav.classList.remove('open');
+    btn.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+</script>
 </body>
 </html>

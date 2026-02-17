@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIA WORSHIP</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dim: rgba(201,168,76,0.15);
+    --dark: #0a0805;
+    --dark2: #110e09;
+    --cream: #f5efe0;
+    --muted: rgba(245,239,224,0.5);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--cream);
+    font-family: 'Noto Serif KR', serif;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 999; opacity: 0.4;
+  }
+
+  /* HEADER */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 4rem;
+    border-bottom: 1px solid var(--gold-dim);
+    background: linear-gradient(to bottom, rgba(10,8,5,0.95), transparent);
+    backdrop-filter: blur(4px);
+  }
+
+  .logo {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem; letter-spacing: 0.35em;
+    color: var(--gold); text-decoration: none;
+  }
+
+  nav { display: flex; gap: 2.5rem; }
+  nav a {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem; letter-spacing: 0.2em;
+    color: var(--muted); text-decoration: none;
+    transition: color 0.3s;
+  }
+  nav a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative; text-align: center;
+    padding: 6rem 2rem 4rem;
+  }
+
+  .hero-glow {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -60%);
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem; letter-spacing: 0.5em;
+    color: var(--gold); margin-bottom: 2rem;
+    animation: fadeUp 1s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 12vw, 9rem);
+    font-weight: 300; line-height: 0.9;
+    letter-spacing: -0.01em; color: var(--cream);
+    animation: fadeUp 1s ease 0.2s both;
+  }
+
+  .hero h1 em {
+    font-style: italic; color: var(--gold);
+    display: block;
+  }
+
+  .hero-divider {
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    margin: 2.5rem auto;
+    animation: fadeUp 1s ease 0.4s both;
+  }
+
+  .hero-sub {
+    font-size: 0.85rem; font-weight: 300;
+    letter-spacing: 0.15em; color: var(--muted);
+    line-height: 2;
+    animation: fadeUp 1s ease 0.5s both;
+  }
+
+  /* INTRO */
+  .intro {
+    padding: 7rem 2rem;
+    max-width: 680px; margin: 0 auto;
+    text-align: center; border-top: 1px solid var(--gold-dim);
+  }
+
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem; letter-spacing: 0.4em;
+    color: var(--gold); margin-bottom: 2.5rem;
+  }
+
+  .intro p {
+    font-size: 1.05rem; font-weight: 300;
+    line-height: 2.2; color: var(--muted);
+  }
+
+  .intro p strong { color: var(--cream); font-weight: 400; }
+
+  /* INFO */
+  .info {
+    background: var(--dark2);
+    padding: 5rem 2rem;
+    border-top: 1px solid var(--gold-dim);
+    border-bottom: 1px solid var(--gold-dim);
+  }
+
+  .info-inner {
+    max-width: 800px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--gold-dim);
+  }
+
+  .info-cell {
+    background: var(--dark2);
+    padding: 3rem 2rem; text-align: center;
+  }
+
+  .info-cell .icon {
+    font-size: 1.2rem; margin-bottom: 1.2rem; opacity: 0.7;
+  }
+
+  .info-cell h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem; letter-spacing: 0.3em;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+
+  .info-cell p {
+    font-size: 0.85rem; font-weight: 300;
+    color: var(--cream); line-height: 1.8;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem; letter-spacing: 0.3em; color: var(--gold);
+  }
+
+  footer p {
+    font-size: 0.65rem; letter-spacing: 0.1em;
+    color: rgba(245,239,224,0.25);
+  }
+
+  /* ANIMATION */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    header { padding: 1.2rem 1.5rem; }
+    nav { gap: 1.2rem; }
+    .info-inner { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="#">FIA WORSHIP</a>
+  <nav>
+    <a href="#">소개</a>
+    <a href="#">예배</a>
+    <a href="#">오시는 길</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <p class="hero-eyebrow">— GATHER · WORSHIP · ENCOUNTER —</p>
+  <h1>FIA<em>WORSHIP</em></h1>
+  <div class="hero-divider"></div>
+  <p class="hero-sub">
+    주님 앞에 함께 나아가는 예배의 자리<br>
+    매주 당신을 기다립니다
+  </p>
+</section>
+
+<section class="intro">
+  <p class="section-label">ABOUT</p>
+  <p>
+    <strong>FIA WORSHIP</strong>은 하나님의 임재 안에서<br>
+    진실된 예배를 드리는 모임입니다.<br><br>
+    형식보다 <strong>마음</strong>을, 공연보다 <strong>만남</strong>을 추구하며<br>
+    모든 예배자가 하나님 앞에 온전히 설 수 있는<br>
+    거룩한 공간을 만들어갑니다.
+  </p>
+</section>
+
+<section class="info">
+  <div class="info-inner">
+    <div class="info-cell">
+      <div class="icon">✦</div>
+      <h3>SCHEDULE</h3>
+      <p>매주 금요일<br>오후 7:30</p>
+    </div>
+    <div class="info-cell">
+      <div class="icon">✦</div>
+      <h3>LOCATION</h3>
+      <p>서울특별시<br>마포구 합정동</p>
+    </div>
+    <div class="info-cell">
+      <div class="icon">✦</div>
+      <h3>CONTACT</h3>
+      <p>@fia.worship<br>Instagram DM</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">FIA WORSHIP</span>
+  <p>© 2026 FIA WORSHIP. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
